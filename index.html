@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Loop 1 - Step 1</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+
+  <!-- Block with offers -->
+  <div class="container advertisement shadow">
+    <div class="row">
+
+      <div class="col-md">
+        <div class="offer text-center" id="offer1">
+          <img class="img-offer" src="./img/device.svg" alt="device">
+          <h3 class="header-offer">Mobile</h3>
+          <div class="description-offer">
+            <p class="description-offer-text">Get notification about new releases in our mobile app.</p>
+          </div>
+          <p class="price-offer">
+            <span class="сurrency-symbol">$</span>
+            <span class="numeric">10</span>
+            <span> / month</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md">
+        <div class="offer text-center" id="offer2">
+          <img class="img-offer" src="./img/laptop.svg" alt="laptop">
+          <h3 class="header-offer">Desktop</h3>
+          <div class="description-offer">
+            <p class="description-offer-text">Enjoy new episodes on your laptop in browser with our web service, which supports all the platforms.</p>
+          </div>
+          <p class="price-offer">
+            <span class="сurrency-symbol">$</span>
+            <span class="numeric">15</span>
+            <span> / month</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md">
+        <div class="offer text-center" id="offer3">
+          <img class="img-offer" src="./img/monitor.svg" alt="monitor">
+          <h3 class="header-offer">TV</h3>
+          <div class="description-offer">
+            <p class="description-offer-text">Watch your favorite series at home on large screen with our TV application.</p>
+          </div>
+          <p class="price-offer">
+            <span class="сurrency-symbol">$</span>
+            <span class="numeric">20</span>
+            <span> / month</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- End block with offers -->
+
+
+  <!-- Block with modal windows for offers -->
+  <div class="modal" id="modalAdvertisement">
+
+    <div class="modal-content" id="modalOffer1">
+      <div class="text-center">
+        <img class="img-cross" id="modalClose1" src="./img/cross.svg" alt="cross">
+        <span class="confirmation-header">Confirmation</span>
+        <img class="img-offer" src="./img/device.svg" alt="device">
+        <h3 class="header-offer">Mobile</h3>
+        <div class="description-offer">
+          <p class="description-offer-text">Get notification about new releases in our mobile app.</p>
+        </div>
+        <p class="price-offer">
+          <span class="сurrency-symbol">$</span>
+          <span class="numeric">10</span>
+          <span> / month</span>
+        </p>
+        <p>
+          <button class="btn btn-primary" type="button">Confirm and pay</button>
+        </p>
+      </div>
+    </div>
+
+    <div class="modal-content" id="modalOffer2">
+      <div class="text-center">
+        <img class="img-cross" id="modalClose2" src="./img/cross.svg" alt="cross">
+        <span class="confirmation-header">Confirmation</span>
+        <img class="img-offer" src="./img/laptop.svg" alt="laptop">
+        <h3 class="header-offer">Desktop</h3>
+        <div class="description-offer">
+          <p class="description-offer-text">Enjoy new episodes on your laptop in browser with our web service, which supports all the platforms.</p>
+        </div>
+        <p class="price-offer">
+          <span class="сurrency-symbol">$</span>
+          <span class="numeric">15</span>
+          <span> / month</span>
+        </p>
+        <p>
+          <button class="btn btn-primary" type="button">Confirm and pay</button>
+        </p>
+      </div>
+    </div>
+
+    <div class="modal-content" id="modalOffer3">
+      <div class="text-center">
+        <img class="img-cross" id="modalClose3" src="./img/cross.svg" alt="cross">
+        <span class="confirmation-header">Confirmation</span>
+        <img class="img-offer" src="./img/monitor.svg" alt="monitor">
+        <h3 class="header-offer">TV</h3>
+        <div class="description-offer">
+          <p class="description-offer-text">Watch your favorite series at home on large screen with our TV application.</p>
+        </div>
+        <p class="price-offer">
+          <span class="сurrency-symbol">$</span>
+          <span class="numeric">20</span>
+          <span> / month</span>
+        </p>
+        <p>
+          <button class="btn btn-primary" type="button">Confirm and pay</button>
+        </p>
+      </div>
+    </div>
+
+  </div>
+  <!-- End block with modal windows for offers -->
+
+
+  <script src="./script.js"></script>
+</body>
+</html>
