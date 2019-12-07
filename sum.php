@@ -4,84 +4,85 @@ declare(strict_types = 1);
 error_reporting(E_ALL);
 
 /**
- * Возвращает результат сложения двух строковых представлений чисел (integer и float)
+ * Возвращает результат сложения двух строковых представлений чисел (integer и / или float)
  *
- * @param $a string
- * @param $b string
+ * @param $integer_part_a string
+ * @param $integer_part_b string
  * 
  * @return string
  */
-function sumBigInt(string $a, string $b) :string
+function sumBigInt(string $integer_part_a, string $integer_part_b) :string
 {
 
     // Проверяем полученные данные от пользователя
-    if (!preg_match('/^[0-9]+$|^[0-9]+\.[0-9]+$/', $a)) {
+    if (!preg_match('/^[0-9]+$|^[0-9]+\.[0-9]+$/', $integer_part_a)) {
         return $result = 'Первый параметр не является строковым представлением числа';
     }
-    if (!preg_match('/^[0-9]+$|^[0-9]+\.[0-9]+$/', $b)) {
+    if (!preg_match('/^[0-9]+$|^[0-9]+\.[0-9]+$/', $integer_part_b)) {
         return $result = 'Второй параметр не является строковым представлением числа';
     }
 
 
     // Разбиваем полученные данные на целые и дробные части
-    if (preg_match('/^[0-9]+\.[0-9]+$/', $a)) {
-        list($integer_part_a, $fraction_part_a) = explode('.', $a);
+    if (preg_match('/^[0-9]+\.[0-9]+$/', $integer_part_a)) {
+        list($integer_part_a, $fraction_part_a) = explode('.', $integer_part_a);
     } else {
-        $integer_part_a = $a;
+        $integer_part_a = $integer_part_a;
         $fraction_part_a = '0';
     }
-    if (preg_match('/^[0-9]+\.[0-9]+$/', $b)) {
-        list($integer_part_b, $fraction_part_b) = explode('.', $b);
+    if (preg_match('/^[0-9]+\.[0-9]+$/', $integer_part_b)) {
+        list($integer_part_b, $fraction_part_b) = explode('.', $integer_part_b);
     } else {
-        $integer_part_b = $b;
+        $integer_part_b = $integer_part_b;
         $fraction_part_b = '0';
     }
 
 
-    function sumIntegerPart($a, $b)
-    {
-        if (strlen($a) > strlen($b)) {
-            $b = str_repeat('0', strlen($a) - strlen($b)) . $b;
-        } elseif (strlen($a) < strlen($b)) {
-            $a = str_repeat('0', strlen($b) - strlen($a)) . $a;
-        }
-        $result = '';
-        for ($i = 0; $i < strlen($a); $i++) {
-            $result .= $a[$i] + $b[$i];
-        }
-        return $result;
+    // Уравниваем длины целой и дробной части с помощью нулей
+    if (strlen($integer_part_a) > strlen($integer_part_b)) {
+        $integer_part_b = str_repeat('0', strlen($integer_part_a) - strlen($integer_part_b)) . $integer_part_b;
+    } elseif (strlen($integer_part_a) < strlen($integer_part_b)) {
+        $integer_part_a = str_repeat('0', strlen($integer_part_b) - strlen($integer_part_a)) . $integer_part_a;
+    }
+    if (strlen($fraction_part_a) > strlen($fraction_part_b)) {
+        $fraction_part_b = $fraction_part_b . str_repeat('0', strlen($fraction_part_a) - strlen($fraction_part_b));
+    } elseif (strlen($fraction_part_a) < strlen($fraction_part_b)) {
+        $fraction_part_a = $fraction_part_a . str_repeat('0', strlen($fraction_part_b) - strlen($fraction_part_a));
     }
 
 
-    function sumFractionPart($a, $b)
-    {
-        if (strlen($a) > strlen($b)) {
-            $b = $b . str_repeat('0', strlen($a) - strlen($b));
-        } elseif (strlen($a) < strlen($b)) {
-            $a = $a . str_repeat('0', strlen($b) - strlen($a));
-        }
-        $result = '';
-        for ($i = 0; $i < strlen($a); $i++) {
-            $result .= $a[$i] + $b[$i];
-        }
-        return $result;
+    // Вычисляем сумму дробных частей
+    $intermediate_result = 0;
+    $balance = 0;
+    $result_fraction_part = '';
+    for ($i = strlen($fraction_part_a)-1; $i >= 0 ; $i--) {
+        $intermediate_result = $fraction_part_a[$i] + $fraction_part_b[$i] + $balance;
+        $balance = 0;
+        $result_fraction_part = (string)($intermediate_result % 10) . $result_fraction_part;
+        $balance = (int)($intermediate_result / 10);
     }
 
 
-    // Сложение целой части
-    $result = '';
-    $result .= sumIntegerPart($integer_part_a, $integer_part_b);
-
-    // Сложение дробной части
-    $result .= '.';
-    $result .= sumFractionPart($fraction_part_a, $fraction_part_b);
-
-    if (preg_match('/\.0$/', $result)) {
-        $result = rtrim($result, '.0');
+    // Вычисляем сумму челых частей
+    $result_integer_part = '';
+    for ($i = strlen($integer_part_a)-1; $i >= 0 ; $i--) {
+        $intermediate_result = $integer_part_a[$i] + $integer_part_b[$i] + $balance;
+        $balance = 0;
+        $result_integer_part = (string)($intermediate_result % 10) . $result_integer_part;
+        $balance = (int)($intermediate_result / 10);
     }
+    if ($balance == 1) {
+        $result_integer_part = (string)$balance . $result_integer_part;
+    }
+
+
+    // Соединяем целую и дробную часть
+    $result = $result_integer_part . '.' . $result_fraction_part;
+
+
     // Возвращаем результат
     return $result;
 
 }
 
-var_dump(sumBigInt('121.1', '2.11'));
+var_dump(sumBigInt('439989.9990009', '38169804.00189409'));
